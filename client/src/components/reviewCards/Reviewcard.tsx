@@ -1,5 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
 
 const reviews = [
   {
@@ -65,7 +67,12 @@ const ReviewCard = () => {
         <h2 className="text-2xl font-bold mb-2 text-amber-950">{name}</h2>
         <p className="text-gray-500 mb-4">{date}</p>
         <div className="text-yellow-400 text-xl mb-4">
-          {"★".repeat(stars)}{"☆".repeat(5 - stars)}
+          {Array(Math.min(5,Math.floor(stars))).fill(null).map((_, index) => (
+            <StarIcon key={index} />
+        ))}
+        {Array(5-Math.min(5,Math.floor(stars))).fill(null).map((_, index) => (
+            <StarBorderIcon key={index} />
+        ))}
         </div>
         <p className="text-gray-700 text-[12px]">{review}</p>
       </div>

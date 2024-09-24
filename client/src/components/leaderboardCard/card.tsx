@@ -3,7 +3,7 @@ import React from 'react'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
-function LeaderboardCard({dish}) {
+function LeaderboardCard({dish}:any) {
   return (
     <div className="w-[80%] border h-[200px] flex text-yellow-100 gap-2">
       <div className="w-[20%]"><Image className="h-full w-full object-cover border-2 p-2" src={dish?.image} alt="" height={1000} width={1000}/></div>

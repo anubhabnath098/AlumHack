@@ -1,11 +1,13 @@
 "use client"
+import Footer from '@/components/footer/Footer';
 import LeaderboardCard from '@/components/leaderboardCard/card'
 import Navbar from '@/components/navbar/navbar'
+import Image from 'next/image';
 import React, { useState } from 'react'
 
 function page() {
     const [timeline, setTimeline] = useState(0);
-    const handleClick = (value)=>{
+    const handleClick = (value:any)=>{
         setTimeline(value);
     }
     const topdish = [
@@ -159,22 +161,26 @@ function page() {
         ]
     ]
   return (
-    <>
-    <Navbar/>
-    <div className='h-screen w-full relative top-[50px] bg-[#2d1b1b] flex flex-col justify-center items-center sm:h-[130vh] md:h-[160vh]'>
-        <div className="flex w-full justify-center items-center gap-5 mb-10">
+    <div className='sticky h-[100vh] w-full'>
+    <div className='w-full relative bg-[#2d1b1b] flex flex-col justify-center items-center h-full overflow-y-scroll z-0'>
+        <Navbar/>
+        <Image className='absolute h-[140vh] w-full opacity-35 object-cover z-10' src="/bg.jpg" alt="" height={1000} width={1000}/>
+        <div className="text-bold flex w-full justify-center items-center gap-5 mb-10 z-20 relative top-[65%]">
             <span className="hover:underline text-yellow-100 cursor-pointer" onClick={e=>handleClick(0)}>Weekly</span>
             <span className="hover:underline text-yellow-100 cursor-pointer" onClick={e=>handleClick(1)}>Monthly</span>
             <span className="hover:underline text-yellow-100 cursor-pointer" onClick={e=>handleClick(2)}>Yearly</span>
         </div>
-        <div className="w-full h-[90%] flex justify-center items-center flex-col gap-2 rounded">
-        {topdish[timeline]&&topdish[timeline].slice(0,Math.min(topdish[timeline].length,5)).map(dish=>(
-            <LeaderboardCard dish={dish} key={dish.id}/>
-        ))}
+        <div className="w-full flex justify-center items-center flex-col gap-2 rounded z-20 relative top-[60%]">
+            {topdish[timeline]&&topdish[timeline].slice(0,Math.min(topdish[timeline].length,5)).map(dish=>(
+                <LeaderboardCard dish={dish} key={dish.id}/>
+            ))}
+
+            <div className="w-full"><Footer/></div>
         </div>
         
+        
     </div>
-    </>
+    </div>
   )
 }
 

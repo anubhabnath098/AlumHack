@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-function Itemsection({item, value}) {
+function Itemsection({item, value}:any) {
     let a=0;
     if(!value){
         a=1;
@@ -9,7 +9,7 @@ function Itemsection({item, value}) {
   return (
     <div className='w-full flex flex-col justify-center items-center md:mt-[140px]'>
       <h1 className="text-[50px] font-serif w-[80%] h-[30%] text-center flex justify-center items-center">{a==0?`Our most popular Beverages`:`Our most popular Snacks Items`}</h1>
-            <Link href="" className='hover:underline text-bold border border-[#2d1b1b] p-2 z-10'>View All</Link>
+            <Link href="/menu" className='hover:underline text-bold border border-[#2d1b1b] p-2 z-10'>View All</Link>
             <div className="flex gap-6 w-[80%] h-[70%] justify-center items-center mt-20">
                 
                 {item[a].map((i:any)=>(

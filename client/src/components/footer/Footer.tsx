@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import FacebookIcon from '@mui/icons-material/Facebook';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 function Footer() {
@@ -13,7 +13,7 @@ function Footer() {
             <p className="text-[13px] text-green-200 opacity-70">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             <div className="flex gap-2 mt-5">
                {/* social media */}
-               <FacebookOutlinedIcon/>
+               <FacebookIcon/>
                <RoomOutlinedIcon/>
                <LinkedInIcon/>
             </div>
