@@ -32,18 +32,10 @@ app.get("/", (req, res) => {
   res.send("Welcome to the backend API!");
 });
 
-// Use user routes for registration and login
-<<<<<<< HEAD
-app.use('/api/users', userRoutes); 
-
-// Use review routes for posting and fetching reviews
 app.use('/api/reviews', reviewRoutes); 
-=======
 app.use("/api/users", userRoutes); // All user-related routes will have a /api/users prefix
 
-// Use menu routes for adding menu items
-app.use("/api/menu", menuRoutes); // All menu-related routes will have a /api/menu prefix
->>>>>>> e959ac0b946289d6e0be54e41508bab975e89ff6
+app.use("/api/menu", menuRoutes); 
 
 // Start the server
 const PORT = process.env.PORT || 5000;
