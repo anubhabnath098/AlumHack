@@ -25,14 +25,14 @@ function Footer() {
             <p className="text-green-200 opacity-70 ">cafeteria@iiita.ac.in</p>
         </div>
         <div className="">
-            <h1 className="text-[24px]">Live Polls</h1>
-            <Link className="text-green-200 opacity-70 hover:underline" href="poll">Take a look</Link>
+            <h1 className="text-[24px]">Reviews</h1>
+            <Link className="text-green-200 opacity-70 hover:underline" href="/review">Leave a Review</Link>
             <h1 className="mt-5 text-[24px]">Location</h1>
             <p className="text-green-200 opacity-70 hover:underline">Inside IIITA Campus</p>
         </div>
         <div className="">
-            <h1 className="text-[24px]">Discounts & Vouchers</h1>
-            <Link href="" className='text-green-200 opacity-70 hover:underline'>List of Discounts</Link>
+            <h1 className="text-[24px]">See Top Items</h1>
+            <Link href="/leaderboard" className='text-green-200 opacity-70 hover:underline'>Leaderboard</Link>
             <h1 className="mt-5 text-[24px]">Contact</h1>
             <p className="text-green-200 opacity-70">+91 1234567890</p>
         </div>

@@ -202,13 +202,13 @@ function page() {
       
       <div className=" overflow-y-scroll">
       <Navbar/>
-      <div className="relative top-[50px] h-screen w-full bg-yellow-100 flex justify-center items-center">
+      <div className="relative top-[50px] h-full w-full bg-yellow-100 flex justify-center items-center">
         <div className="w-full h-[60%] flex ">
           <div className="flex flex-col flex-1 items-center">
             <h1 className="font-serif text-[4rem] text-center">It's Not Just A Beverage, It's an Experience !</h1>
               <div className="flex gap-6">
                 <button className="border border-red-950 bg-green-950 text-yellow-100 p-2 px-5 rounded shadow-sm hover:bg-yellow-100 hover:text-green-950 transition-all">Order</button>
-                <button className="border-2 border-red-950 p-2 px-5 transition-all hover:bg-red-950 hover:text-yellow-100">View Details</button>
+                <Link href={"/menu/drink/"+fooddata[0][0].id}><button className="border-2 border-red-950 p-2 px-5 transition-all hover:bg-red-950 hover:text-yellow-100">View Details</button></Link>
               </div>
               <div className="mt-10 w-full flex flex-col justify-center items-center">
                 <p className="text-bold text-[20px] hover:underline"><Link href="">Reviews</Link></p>
@@ -231,22 +231,23 @@ function page() {
             
         </div>
         </div>
-        <div className="w-full h-full">
-            <div className="flex w-full justify-center items-center gap-10 mb-10">
+        <div className="w-full relative">
+            <div className="flex w-full justify-center items-center gap-10 mb-10 relative z-10 bg-yellow-100">
                 <span className="text-bold hover:underline cursor-pointer flex gap-2 text-red-950 z-30" onClick={e=>handleclick(true)}>Drinks <LocalCafeOutlinedIcon/></span>
                 <span className="text-bold hover:underline cursor-pointer flex gap-2 text-red-950 z-30" onClick={e=>handleclick(false)}>Snacks<LunchDiningOutlinedIcon/></span>
                 {admin?(<span className="text-bold hover:underline cursor-pointer flex gap-2 text-red-950 z-30" onClick={e=>router.push("/menu/additem")}>Add Item<AddBoxIcon/></span>):(<span></span>)}
             </div>
-            <div className="w-full flex flex-wrap gap-5 h-[40%] justify-center items-center pb-10">
+            <div className="w-full flex flex-wrap gap-5 h-full justify-center items-end pb-10 relative">
                 {fooddata&&item==true? (fooddata[0].map(food=>(
                   <Foodcard food={food} key={food.id}/>
                 ))):(fooddata[1].map(food=>(
                   <Foodcard food={food} key={food.id}/>
                 )))}
-                <div className="w-full">
-                    <Footer/>
-                </div>
+                
+                    
+                
             </div>
+            <Footer/>
         </div>
         
         

@@ -17,6 +17,10 @@ const page = () => {
           <div className="sm:w-[70%] md:w-[55%] flex flex-col justify-center gap-5">
             <div className="w-full text-center text-[20px]">LOGIN TO <span className="font-serif italic text-[25px] text-yellow-100">CAFETERIA</span></div>
             <div className="flex gap-2 items-center">
+            <h1 className="w-[30%] text-center">Username</h1>
+            <input type="text" className="p-2 px-4 bg-[#2d1b1b] border" placeholder='Enter your password'/>
+            </div>
+            <div className="flex gap-2 items-center">
               <h1 className="w-[30%] text-center">Email</h1>
               <input type="email" className="p-2 px-4 bg-[#2d1b1b] border" placeholder='Enter your email'/>
             </div>
