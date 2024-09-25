@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const userRoutes = require('./Routes/userRoute'); // Import user routes
 const reviewRoutes = require('./Routes/reviewRoute'); // Import review routes
-=======
-// Import necessary modules
-const express = require("express");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const userRoutes = require("./Routes/userRoute"); // Import user routes
 const menuRoutes = require("./Routes/menuRoute"); // Import menu routes
->>>>>>> e959ac0b946289d6e0be54e41508bab975e89ff6
 
 dotenv.config();
 
