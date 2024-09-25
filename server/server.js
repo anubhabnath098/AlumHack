@@ -1,8 +1,8 @@
-// Import necessary modules
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const userRoutes = require('./Routes/userRoute'); // Import user routes
+const reviewRoutes = require('./Routes/reviewRoute'); // Import review routes
 
 dotenv.config();
 
@@ -21,11 +21,13 @@ app.get('/', (req, res) => {
 });
 
 // Use user routes for registration and login
-app.use('/api/users', userRoutes); // All user-related routes will have a /api/users prefix
+app.use('/api/users', userRoutes); 
+
+// Use review routes for posting and fetching reviews
+app.use('/api/reviews', reviewRoutes); 
 
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-

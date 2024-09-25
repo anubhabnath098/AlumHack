@@ -2,51 +2,56 @@ const User = require('../Models/User');
 const bcrypt = require('bcrypt');
 
 // Register a new user
-exports.registerUser = async (req, res) => {
-    const { email, password, isAdmin } = req.body;
+const registerUser = async (req, res) => {
+    const { name, email, password } = req.body;
 
     try {
-        // Check if user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
+        // Check if the user already exists
+        const userExists = await User.findOne({ email });
+        if (userExists) {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        // Create new user
-        const user = new User({
+        // Create a new user
+        const user = await User.create({
+            name,
             email,
-            password,
-            isAdmin
+            password
         });
 
-        // Save user to the database
-        await user.save();
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        });
     } catch (error) {
-        res.status(500).json({ message: 'Error registering user', error });
+        res.status(400).json({ message: error.message });
     }
 };
 
 // Login user
-exports.loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
         // Find the user by email
         const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: 'Invalid credentials' });
-        }
 
-        // Check if password matches
-        const isMatch = await user.matchPassword(password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+        // Check if the user exists and the password matches
+        if (user && (await user.matchPassword(password))) {
+            res.json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                isAdmin: user.isAdmin,
+            });
+        } else {
+            res.status(401).json({ message: 'Invalid email or password' });
         }
-
-        // Return success response
-        res.status(200).json({ message: 'Login successful', isAdmin: user.isAdmin });
     } catch (error) {
-        res.status(500).json({ message: 'Error logging in', error });
+        res.status(400).json({ message: error.message });
     }
 };
+
+module.exports = { registerUser, loginUser };
