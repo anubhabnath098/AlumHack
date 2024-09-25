@@ -9,7 +9,7 @@ function Foodcard({food}:any) {
 
   return (
     <div className='h-[300px] w-[250px] bg-white flex flex-col justidy-center items-center relative'>
-        <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center absolute transition-all top-[-7px] right-[-7px] z-20 bg-red-950 text-white hover:border hover:bg-white hover:text-red-950"><Link href={"/menu/drink/"+food.id}><FreeBreakfastIcon/></Link></div>
+        <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center absolute transition-all top-[-7px] right-[-7px] z-20 bg-red-950 text-white hover:border hover:bg-white hover:text-red-950"><Link href={food.type=="drink"?"/menu/drink/"+food.id:"/menu/snack/"+food.id}><FreeBreakfastIcon/></Link></div>
         <Image className='w-full h-[60%] object-cover p-2 border' src={food?.image} alt="" height={500} width={500}/>
       <h1 className="">{food?.name}</h1>
       <div className="flex w-full h-[10%] text-[10px] justify-center items-center gap-2">

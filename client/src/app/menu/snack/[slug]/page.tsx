@@ -18,15 +18,14 @@ import { useRouter } from 'next/navigation';
 function page() {
     let router = useRouter();
     const {slug} = useParams();
-    let fooditem = fooddata[0].filter(data=>slug===data.id?.toString());
+    let fooditem = fooddata[1].filter(data=>slug===data.id?.toString());
     const [qty, setQty] = useState(0);
     const goBack=()=>{
         router.back();
     }
   return (
-    <div className='w-full h-screen flex justify-center items-center bg-yellow-100 z-0'>
-        <Image src="/background.png" alt="" height={1000} width={1000} className='absolute h-full w-full top-0 z-10 object-cover'/>
-        <div className="h-[80%] w-[50%] rounded bg-white border border-gray-500 flex z-20">
+    <div className='w-full h-screen flex justify-center items-center bg-yellow-100'>
+        <div className="h-[80%] w-[50%] rounded bg-white border border-gray-500 flex">
             <div className="w-[50%] flex flex-col justify-center items-center gap-4">
                 <div className="h-[50px] w-[50px] rounded-full border-2 flex justify-center items-center self-start ml-14 cursor-pointer" onClick={goBack}><ArrowBackIcon/></div>
                 <Image className="w-[70%] h-[40%] p-2 border-2 border-gray-300 object-cover" src={fooditem[0].image} alt="" height={1000} width={1000}/>

@@ -10,153 +10,190 @@ function page() {
     const handleClick = (value:any)=>{
         setTimeline(value);
     }
+
     const topdish = [
         [{
             id:1,
             name:"cappuccino",
+            desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
             image:"/cappuccino.jpg",
             reviews:9,
             upvote:20,
-            downvote:5
+            downvote:5,
+            stars:4
         },
         {
             id:2,
             name:"chocolate",
+            desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
             image:"/chocolate.png",
             reviews:9,
             upvote:20,
-            downvote:5
+            downvote:5,
+            stars:4
         },
         {
             id:3,
             name:"cappuccino",
+            desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
             image:"/cappuccino.jpg",
             reviews:9,
             upvote:20,
-            downvote:5
+            downvote:5,
+            stars:4
         },
         {
             id:4,
             name:"cappuccino",
+            desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
             image:"/cappuccino.jpg",
             reviews:9,
             upvote:20,
-            downvote:5
+            downvote:5,
+            stars:4
         },
         {
             id:5,
             name:"cappuccino",
+            desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
             image:"/cappuccino.jpg",
             reviews:9,
             upvote:20,
-            downvote:5
+            downvote:5,
+            stars:4
         },
         {
             id:6,
             name:"mojito",
+            desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
             image:"/mojito.jpeg",
             reviews:9,
             upvote:20,
-            downvote:5
+            downvote:5,
+            stars:4
         }],
         [
             {
                 id:7,
                 name:"mojito",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/mojito.jpeg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:8,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:9,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:10,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:11,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:12,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             }
         ],
         [
             {
                 id:13,
                 name:"maggi",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/maggi.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:14,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:15,
                 name:"maggi",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/maggi.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:16,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:17,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             },
             {
                 id:18,
                 name:"cappuccino",
+                desc:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio quisquam atque quibusdam rem, obcaecati dolor reprehenderit laboriosam unde quaerat delectus.",
                 image:"/cappuccino.jpg",
                 reviews:9,
                 upvote:20,
-                downvote:5
+                downvote:5,
+                stars:4
             }
         ]
     ]
@@ -164,7 +201,7 @@ function page() {
     <div className='sticky h-[100vh] w-full'>
     <div className='w-full relative bg-[#2d1b1b] flex flex-col justify-center items-center h-full overflow-y-scroll z-0'>
         <Navbar/>
-        <Image className='absolute h-[140vh] w-full opacity-35 object-cover z-10' src="/bg.jpg" alt="" height={1000} width={1000}/>
+        <Image className='absolute h-[230vh] w-full opacity-35 object-cover z-10' src="/bg.jpg" alt="" height={1000} width={1000}/>
         <div className="text-bold flex w-full justify-center items-center gap-5 mb-10 z-20 relative top-[65%]">
             <span className="hover:underline text-yellow-100 cursor-pointer" onClick={e=>handleClick(0)}>Weekly</span>
             <span className="hover:underline text-yellow-100 cursor-pointer" onClick={e=>handleClick(1)}>Monthly</span>
