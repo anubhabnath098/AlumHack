@@ -2,12 +2,19 @@ const mongoose = require('mongoose');
 
 // Define the Review Schema
 const reviewSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Reference the User model
-        required: true,
+    foodId:{
+        type:String,
+        required:true
     },
-    review: {
+    username: {
+        type:String,
+        required:true
+    },
+    title:{
+        type:String,
+        required:true
+    },
+    description: {
         type: String,
         required: true,
     },
@@ -17,6 +24,10 @@ const reviewSchema = new mongoose.Schema({
         min: 1, // minimum stars is 1
         max: 5, // maximum stars is 5
     },
+    date:{
+        type:Date,
+        default:Date.now
+    }
 }, { timestamps: true });
 
 // Export the model

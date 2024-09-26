@@ -8,6 +8,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ReviewCard from '../reviewCards/Reviewcard';
 import Itemsection from '../itemsection/Itemsection';
 import Footer from '../footer/Footer';
+import axios from 'axios';
 function Frontpage() {
     const [item, setItem] = useState(true);
     const handleclick = (value:boolean)=>{
@@ -18,49 +19,69 @@ function Frontpage() {
             setItem(false);
         }
     }
-    const itemdata=[
+    const [fooddata, setFooddata] = useState([
         [
-            {
-                id:1,
-                name:"cappuccino",
-                image:"/cappuccino.jpg",
-                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-
+          {
+            _id:1,
+            name:"Sandwich",
+            type:"snacks",
+            availability:true,
+            image:"sandwich.jpg",
+            desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel illo tempora vitae qui sit dignissimos, assumenda quisquam eos eveniet animi fuga eaque consectetur culpa cupiditate nemo veniam alias sequi nihil!",
+            nutrition:{
+              fat:"20 kcal",
+              protein:"5.2 gm",
+              carbs:"100 kcal"
             },
-            {
-                id:2,
-                name:"virgin mojito",
-                image:"/mojito.jpeg",
-                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-            },
-            {
-                id:3,
-                name:"blue lagoon",
-                image:"/bluelagoon.webp",
-                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-            }
+            quantity:"1 plate",
+            price:60,
+            reviews:5,
+            upvote:20,
+            downvote:6,
+            stars:4
+          }
         ],
         [
-            {
-                id:4,
-                name:"sandwich",
-                image:"/sandwich.jpg",
-                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+          {
+            _id:2,
+            name:"Cheeze Sandwich",
+            type:"snacks",
+            availability:true,
+            image:"sandwich.jpg",
+            desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel illo tempora vitae qui sit dignissimos, assumenda quisquam eos eveniet animi fuga eaque consectetur culpa cupiditate nemo veniam alias sequi nihil!",
+            nutrition:{
+              fat:"20 kcal",
+              protein:"5.2 gm",
+              carbs:"100 kcal"
             },
-            {
-                id:5,
-                name:"peri peri fries",
-                image:"/fries.jpg",
-                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-            },
-            {
-                id:6,
-                name:"maggi",
-                image:"/maggi.jpg",
-                desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-            }
+            quantity:"1 plate",
+            price:65,
+            reviews:5,
+            upvote:20,
+            downvote:6,
+            stars:4
+          }
         ]
-    ]
+      ]);
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get("http://localhost:5000/api/menu");
+            console.log(response.data);
+            const completeFood = response.data.data;
+            if (completeFood) {
+              setFooddata([
+                completeFood.filter(food => food.type === 'drink'),
+                completeFood.filter(food => food.type === 'snack')
+              ]);
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        };
+    
+        fetchData();
+      }, []);
   return (
     <>
     <div className='bg-[#2d1b1b] w-full md:h-[800px] flex text-white sm:h-[900px]'>
@@ -90,7 +111,7 @@ function Frontpage() {
                 <span className="text-bold hover:underline cursor-pointer flex gap-2" onClick={e=>handleclick(true)}>Drinks <LocalCafeOutlinedIcon/></span>
                 <span className="text-bold hover:underline cursor-pointer flex gap-2" onClick={e=>handleclick(false)}>Snacks<LunchDiningOutlinedIcon/></span>
             </div>
-            <Itemsection item={itemdata} value={item}/>
+            <Itemsection item={fooddata} value={item}/>
         </div>
         <Footer/>
     </>

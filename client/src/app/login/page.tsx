@@ -5,8 +5,31 @@ import React, { useState } from "react";
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { useRouter } from "next/navigation";
+import axios from 'axios'
 
 const page = () => {
+  const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async()=>{
+    try{
+      console.log(username, email, password);
+      const response = await axios.post("http://localhost:5000/api/users/login",{
+      username,
+      password
+    });
+    console.log(response.data);
+    localStorage.setItem('username',response.data?.username);
+    if(response.data.status===true){
+      router.push("/")
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
+  }
   return (
     <>
       <div className="bg-[#2d1b1b] w-full h-screen flex justify-center items-center">
@@ -18,19 +41,19 @@ const page = () => {
             <div className="w-full text-center text-[20px]">LOGIN TO <span className="font-serif italic text-[25px] text-yellow-100">CAFETERIA</span></div>
             <div className="flex gap-2 items-center">
             <h1 className="w-[30%] text-center">Username</h1>
-            <input type="text" className="p-2 px-4 bg-[#2d1b1b] border" placeholder='Enter your password'/>
+            <input type="text" className="p-2 px-4 bg-[#2d1b1b] border" placeholder='Enter your username' onChange={e=>setUsername(e.target.value)}/>
             </div>
             <div className="flex gap-2 items-center">
               <h1 className="w-[30%] text-center">Email</h1>
-              <input type="email" className="p-2 px-4 bg-[#2d1b1b] border" placeholder='Enter your email'/>
+              <input type="email" className="p-2 px-4 bg-[#2d1b1b] border" placeholder='Enter your email' onChange={e=>setEmail(e.target.value)}/>
             </div>
             <div className="flex gap-2 items-center">
             <h1 className="w-[30%] text-center">Password</h1>
-            <input type="password" className="p-2 px-4 bg-[#2d1b1b] border" placeholder='Enter your password'/>
+            <input type="password" className="p-2 px-4 bg-[#2d1b1b] border" placeholder='Enter your password' onChange={e=>setPassword(e.target.value)}/>
             </div>
             <h3 className="flex w-full justify-center items-center gap-3 text-[12px]">Don't have an Account?<Link className="text-yellow-200 hover:underline" href="/register">Register</Link></h3>
             <div className="w-full flex justify-center items-center">
-              <button className="border p-2 px-7 transition-all hover:bg-yellow-100 hover:text-red-950">Login</button>
+              <button className="border p-2 px-7 transition-all hover:bg-yellow-100 hover:text-red-950" onClick={handleSubmit}>Login</button>
             </div>
             <h3 className="flex w-full justify-center items-center gap-3 text-[12px]"><Link className="text-yellow-200 hover:underline" href="/forgot-password">forgot password?</Link></h3>
             <div className="w-full flex justify-center items-center gap-3"><GoogleIcon/><GitHubIcon/><FacebookIcon/></div>

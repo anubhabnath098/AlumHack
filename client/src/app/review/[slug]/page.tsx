@@ -1,15 +1,16 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
+import axios from 'axios';
 
 const ReviewsPage = () => {
   const router = useRouter();
   const {slug} = useParams();
-  const username = "current_user";
+  const username = localStorage.getItem('username');
   const goBack=()=>{
     router.back();
 }
@@ -23,24 +24,31 @@ const ReviewsPage = () => {
       stars: 5,
       date: '2024-09-20',
     },
-    {
-      username: 'jane_doe',
-      title: 'Could be better',
-      description: 'The pizza was a bit soggy. Not my favorite.',
-      stars: 3,
-      date: '2024-09-18',
-    },
-    {
-      username: 'food_lover',
-      title: 'Amazing Fries!',
-      description: 'The fries were crispy and delicious. Perfect side dish.',
-      stars: 4,
-      date: '2024-09-15',
-    },
   ]);
+
+  useEffect(()=>{
+    const getReviews = async()=>{
+      try{
+      const response = await axios.get(`http://localhost:5000/api/reviews/${slug}`)
+      if(response.data.review){
+        setReviews(response.data.review);
+      }else{
+        console.log("error fetching data");
+      }
+
+      }
+      catch(err){
+        console.log(err);
+      }
+
+    }
+    getReviews();
+  },[reviews]);
 
   // State for new review
   const [newReview, setNewReview] = useState({
+    foodId:slug,
+    username:username,
     title: '',
     description: '',
     stars: 0,
@@ -54,17 +62,22 @@ const ReviewsPage = () => {
     setNewReview({ ...newReview, [name]: value });
   };
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async(e:any) => {
     e.preventDefault();
-    const reviewToAdd = {
-      username: username, // Assume the user is logged in and this is their username
-      ...newReview,
-      date: new Date().toISOString().split('T')[0], // Current date
-    };
-    setReviews([reviewToAdd, ...reviews]); // Add the new review at the top of the list
-    setNewReview({ title: '', description: '', stars: 0 }); // Reset form
-    setShowForm(false); // Hide form after submission
-  };
+    try{
+      const response = await axios.post(`http://localhost:5000/api/reviews/${slug}`,{
+        newReview
+      })
+      if(response.data.review){
+        setReviews([...reviews, response.data.review]);
+      }
+        
+    }
+    catch(err){
+      console.log(err);
+    }
+
+  }
 
   return (
     <div className="min-h-screen bg-yellow-100 py-10 px-6">

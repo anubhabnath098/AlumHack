@@ -2,21 +2,23 @@ const mongoose = require('mongoose');
 
 // Define the Nutrition Schema
 const nutritionSchema = new mongoose.Schema({
-  fat: { type: String, required: true },
-  protein: { type: String, required: true },
-  carbs: { type: String, required: true }
+  fat: { type: String},
+  protein: { type: String},
+  carbs: { type: String}
 });
 
 // Define the Food Schema
 const foodSchema = new mongoose.Schema({
-  id: { type: Number, required: true, unique: true },
-  name: { type: String, required: true },
+  name: { type: String, required: true},
   availability: { type: Boolean, required: true },
   type: { type: String, required: true },
   image: { type: String, required: true },
   desc: { type: String, required: true },
-  nutrition: nutritionSchema,
-  quantity: { type: String, required: true },
+  nutrition:{
+    fat: { type: String},
+    protein: { type: String},
+    carbs: { type: String}
+  },
   price: { type: Number, required: true },
   reviews: { type: Number, required: true },
   upvote: { type: Number, required: true },

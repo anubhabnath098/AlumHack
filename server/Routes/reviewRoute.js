@@ -5,7 +5,7 @@ const { protect } = require('../Middleware/authMiddleware');
 const router = express.Router();
 
 // Post a review for a specific food item (requires authentication)
-router.post('/:foodid', protect, createReview);
+router.post('/:foodid',createReview);
 
 // Get all reviews for a specific food item
 router.get('/:foodid', getReviews);

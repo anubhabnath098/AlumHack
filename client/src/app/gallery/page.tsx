@@ -84,7 +84,7 @@ const Page = () => {
 
   return (
     <>
-    <div className="min-h-screen bg-yellow-100">
+    <div className="min-h-screen bg-yellow-100 sticky">
       <Navbar />
 
       {/* Sticky header with Add Image button */}
@@ -140,9 +140,9 @@ const Page = () => {
         </section>
 
         {/* All Images Section */}
-        <section className="mt-8">
+        <section className="mt-8 sticky overflow-y-scroll">
           <h2 className="text-xl text-green-950 font-semibold mb-4">All Images</h2>
-          <div className="grid grid-cols-4 gap-4" style={{ height: '400px' }}>
+          <div className="grid grid-cols-4 gap-4">
             {images.map((image, idx) => (
               <div
                 key={idx}
@@ -153,7 +153,7 @@ const Page = () => {
                 <p className="text-center text-red-950 font-semibold mt-2">{image.title}</p>
                 {image.username === currentUser && (
                   <button
-                    className="text-white mt-2 flex items-center space-x-2 h-[50px] w-[50px] rounded-full bg-green-950 justify-center"
+                    className="text-white mt-2 flex items-center space-x-2 h-[50px] w-[50px] rounded-full bg-green-950 justify-center relative z-50"
                     onClick={(e) => handleEditImage(image,e)}
                   >
                     <EditIcon />

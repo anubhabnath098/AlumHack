@@ -4,17 +4,23 @@ const dotenv = require('dotenv');
 const userRoutes = require('./Routes/userRoute'); // Import user routes
 const reviewRoutes = require('./Routes/reviewRoute'); // Import review routes
 const menuRoutes = require("./Routes/menuRoute"); // Import menu routes
+const cors = require("cors")
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+  credentials: true
+}))
 
 // MongoDB Connection
 mongoose
   .connect(
-    "mongodb+srv://4:4@cluster2.5lfuw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster2"
+    "mongodb://localhost:27017/Alum"
   )
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
