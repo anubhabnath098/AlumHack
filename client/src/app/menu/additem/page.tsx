@@ -190,7 +190,7 @@ function AdminPage() {
                 </select></div>
                 <div>
                 <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                  Category
+                  Availability
                 </label>
                 <select 
                   name="category" 
