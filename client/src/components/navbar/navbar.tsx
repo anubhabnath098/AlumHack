@@ -5,16 +5,19 @@ import Link from 'next/link';
 
 function Navbar() {
   const [username, setUsername] = useState("");
+  const [admin, setAdmin] = useState(false);
   useEffect(()=>{
     const user = localStorage.getItem('username');
+    const isAdmin = localStorage.getItem('admin')==='true'
     if(user){
       setUsername(user);
+      setAdmin(isAdmin);
     }
     else{
       setUsername("");
     }
     
-  })
+  },[])
   return (
     <>
       <div className="flex justify-between z-40 top-0 items-center h-[50px] w-full text-yellow-100 bg-[#2d1b1b] fixed">
@@ -52,7 +55,7 @@ function Navbar() {
               </h2>
             </>
           ) : (
-            <>Hello, {username} <span className='cursor-pointer text-bold' onClick={()=>{setUsername(""); localStorage.removeItem('username')}}>Sign Out</span></>
+            <>Hello, {username} <span className='cursor-pointer text-bold' onClick={()=>{setUsername(""); localStorage.removeItem('username'); localStorage.removeItem('admin'); setAdmin(false)}}>Sign Out</span></>
           )}
           <h2>
             <Link href="/order">

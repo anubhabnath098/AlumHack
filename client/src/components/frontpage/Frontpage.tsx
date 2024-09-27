@@ -89,7 +89,7 @@ function Frontpage() {
         <div className="relative top-[140px] flex flex-col h-[70%] gap-2 w-full items-center justify-center">
             <h1 className="text-[60px] font-serif w-[70%]">Premium Coffee At Your Table</h1>
             <p className="w-[70%] mb-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa saepe beatae nesciunt hic amet magni suscipit minima vitae molestias.
+            We believe that every meal is an opportunity to nourish both body and mind. Our vibrant cafeteria offers a diverse array of delicious, freshly prepared meals that cater to all tastes and dietary needs. From hearty comfort food to healthy, plant-based options, there’s something for everyone.
             </p>
             <button className="w-[70%] flex cursor-default"><Link className='border p-3 text-bold transition-all hover:bg-white hover:text-[#2d1b1b] z-30' href="/menu">Order Now</Link></button>
             <div className="h-[30%] w-[70%] font-serif text-[1.5rem] mt-10">

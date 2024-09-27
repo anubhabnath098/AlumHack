@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 
 function EditItemPage() {
   const admin = true; // Assuming admin status is true for now
-  const { id } = useParams(); // Retrieve the dish ID from the URL
+  const { slug } = useParams(); // Retrieve the dish ID from the URL
   const [dishData, setDishData] = useState({
     name: '',
     availability: true,
@@ -30,17 +30,17 @@ function EditItemPage() {
   useEffect(() => {
     const fetchDish = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/menu/${id}`);
+        const response = await axios.get(`http://localhost:5000/api/menu/${slug}`);
         console.log(response.data);
-        setDishData(response.data);
-        setImage(response.data.image); // Set the existing image
+        setDishData(response.data.data);
+        setImage(response.data.data.image); // Set the existing image
         setLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     fetchDish();
-  }, [id]);
+  }, [slug]);
 
   // Handle file input change
   const handleFile = (e: any) => {
@@ -58,7 +58,8 @@ function EditItemPage() {
         ...dishData,
         image: image // Update image data
       };
-      const response = await axios.put(`http://localhost:5000/api/menu/${id}`, updatedData);
+      console.log(updatedData);
+      const response = await axios.put(`http://localhost:5000/api/menu/${slug}`, updatedData);
       console.log(response.data);
       if (response.data.status === true) {
         alert("Dish updated successfully!");
@@ -129,7 +130,7 @@ function EditItemPage() {
                     <input 
                       type="number" 
                       name="fat" 
-                      value={dishData.nutrition.fat} 
+                      value={dishData.nutrition?.fat} 
                       onChange={e => setDishData({ 
                         ...dishData, 
                         nutrition: { ...dishData.nutrition, fat: parseInt(e.target.value) } 
@@ -146,7 +147,7 @@ function EditItemPage() {
                     <input 
                       type="number" 
                       name="protein" 
-                      value={dishData.nutrition.protein} 
+                      value={dishData.nutrition?.protein} 
                       onChange={e => setDishData({ 
                         ...dishData, 
                         nutrition: { ...dishData.nutrition, protein: parseInt(e.target.value) } 
@@ -163,7 +164,7 @@ function EditItemPage() {
                     <input 
                       type="number" 
                       name="carbs" 
-                      value={dishData.nutrition.carbs} 
+                      value={dishData.nutrition?.carbs} 
                       onChange={e => setDishData({ 
                         ...dishData, 
                         nutrition: { ...dishData.nutrition, carbs: parseInt(e.target.value) } 
@@ -188,8 +189,8 @@ function EditItemPage() {
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                <div className='flex gap-4'>
+                  <div><label htmlFor="category" className="block text-sm font-medium text-gray-700">
                     Category
                   </label>
                   <select 
@@ -200,7 +201,19 @@ function EditItemPage() {
                   >
                     <option value="snack">Snack</option>
                     <option value="drink">Drink</option>
-                  </select>
+                  </select></div>
+                  <div><label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                    Category
+                  </label>
+                  <select 
+                    name="category" 
+                    value={dishData.availability.toString()} 
+                    onChange={e => setDishData({ ...dishData, availability: e.target.value==='true' })} 
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                  >
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                  </select></div>
                 </div>
 
                 <button 

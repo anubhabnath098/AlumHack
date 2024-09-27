@@ -3,7 +3,7 @@ import React from 'react'
 function page() {
   return (
     <div>
-      order
+      order Page is Under Development
     </div>
   )
 }

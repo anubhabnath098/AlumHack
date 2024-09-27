@@ -13,6 +13,20 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 function page() {
+  const [topDishes, setTopDishes] = useState([]);
+  useEffect(() => {
+    const fetchTopDishes = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/menu/leaderboard?period=weekly`);
+            setTopDishes(response.data.data);
+            //console.log(topDishes)
+        } catch (error) {
+            console.error('Error fetching top dishes:', error);
+        }
+    };
+
+    fetchTopDishes();
+},[]);
   const [fooddata, setFooddata] = useState([
     [
       {
@@ -79,6 +93,7 @@ function page() {
 
   const router = useRouter();
   const [item, setItem] = useState(true);
+  const [admin, setAdmin] = useState(false);
 
   const handleclick = (value:Boolean)=>{
     if(value){
@@ -88,7 +103,22 @@ function page() {
       setItem(false);
     }
   }
-  const admin = true;
+
+  useEffect(()=>{
+    const getAdminStatus = ()=>{
+      const isAdmin = localStorage.getItem('admin');
+      const boolAdmin = isAdmin==='true'
+      console.log(boolAdmin);
+      if(boolAdmin){
+        setAdmin(true);
+      }
+      else{
+        setAdmin(false)
+      }
+    }
+    getAdminStatus();
+  },[])
+  
  
   return (
     <div className='w-full bg-yellow-100 text-red-950 flex flex-col justify-center items-center h-[100vh] sticky'>
@@ -98,18 +128,18 @@ function page() {
       <div className="relative top-[50px] h-full w-full bg-yellow-100 flex justify-center items-center">
         <div className="w-full h-[60%] flex ">
           <div className="flex flex-col flex-1 items-center">
-            <h1 className="font-serif text-[4rem] text-center">It's Not Just A Beverage, It's an Experience !</h1>
+            {topDishes[0]?.type==='drink'?(<h1 className="font-serif text-[4rem] text-center p-4">It's Not Just A Beverage, It's an Experience !</h1>):(<h1 className="font-serif text-[4rem] text-center p-4">Taste Our Most Popular Snack, a savory treat!!</h1>)}
               <div className="flex gap-6">
                 <button className="border border-red-950 bg-green-950 text-yellow-100 p-2 px-5 rounded shadow-sm hover:bg-yellow-100 hover:text-green-950 transition-all">Order</button>
-                {fooddata.length!==0?(<Link href={"/menu/drink/"+fooddata[0][0]?._id}><button className="border-2 border-red-950 p-2 px-5 transition-all hover:bg-red-950 hover:text-yellow-100">View Details</button></Link>):""}
+                {fooddata.length!==0?(<Link href={"/menu/"+topDishes[0]?.type+"/"+topDishes[0]?._id}><button className="border-2 border-red-950 p-2 px-5 transition-all hover:bg-red-950 hover:text-yellow-100">View Details</button></Link>):""}
               </div>
               <div className="mt-10 w-full flex flex-col justify-center items-center">
                 <p className="text-bold text-[20px] hover:underline"><Link href="">Reviews</Link></p>
                 <div className="">
-                  {Array(Math.min(5,Math.floor(fooddata[0][0]?fooddata[0][0].stars:5))).fill(null).map((_, index) => (
+                  {Array(Math.min(5,Math.floor(topDishes[0]?topDishes[0].stars:5))).fill(null).map((_, index) => (
                   <StarIcon key={index} />
                     ))}
-                    {Array(5-Math.min(5,Math.floor(fooddata[0][0]?fooddata[0][0].stars:5))).fill(null).map((_, index) => (
+                    {Array(5-Math.min(5,Math.floor(topDishes[0]?topDishes[0].stars:5))).fill(null).map((_, index) => (
                         <StarBorderIcon key={index} />
                     ))}
                 </div>
@@ -118,8 +148,8 @@ function page() {
               </div>
           </div>
           <div className="relative">
-            <div className="p-1 h-[150px] w-[150px] rounded-full absolute left-[-40px] top-[-40px] bg-white border-2 border-red-950 flex justify-center items-center text-bold flex-col text-[20px]">{fooddata[0][0]?.name}<span className='text-[10px]'>#1 in Leaderboard</span></div>
-            <Image src={"/"+fooddata[0][0]?.image} alt="" height={1000} width={1000} className='w-[90%] h-[90%] object-cover p-3 border-2 border-red-950'/>
+            <div className="p-1 h-[150px] w-[150px] rounded-full absolute left-[-40px] top-[-40px] bg-white border-2 border-red-950 flex justify-center items-center text-bold flex-col text-[20px]">{topDishes[0]?.name}<span className='text-[10px]'>#1 in Leaderboard</span></div>
+            <Image src={"/"+topDishes[0]?.image} alt="" height={1000} width={1000} className='w-[90%] h-[90%] object-cover p-3 border-2 border-red-950'/>
           </div>
             
         </div>

@@ -75,16 +75,16 @@ function Foodcard({ food, admin }: any) {
       {admin && (
         <div className="flex gap-4 mt-2">
           <button
-            className="p-2 bg-green-950 text-yellow-100 rounded hover:bg-yellow-100 hover:text-green-950"
+            className="p-2 bg-green-950 border text-yellow-100 rounded transition-all hover:bg-yellow-100 hover:text-green-950 hover:border hover:border-green-950"
             onClick={handleEdit}
           >
-            <EditIcon /> Edit
+            <EditIcon />
           </button>
           <button
-            className="p-2 bg-red-950 text-yellow-100 rounded hover:bg-yellow-100 hover:text-red-950"
+            className="p-2 bg-red-950 border text-yellow-100 rounded transition-all hover:bg-yellow-100 hover:text-red-950 hover:border hover:border-red-950"
             onClick={handleDelete}
           >
-            <DeleteIcon /> Delete
+            <DeleteIcon />
           </button>
         </div>
       )}

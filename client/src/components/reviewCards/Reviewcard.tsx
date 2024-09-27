@@ -39,6 +39,44 @@ const reviews = [
 ];
 
 const ReviewCard = () => {
+  const [reviews, setReviews] = useState([
+    {
+      name: "John Doe",
+      date: "2024-09-20",
+      stars: 5,
+      review: "Amazing product! Would definitely recommend it to everyone.",
+    },
+    {
+      name: "Jane Smith",
+      date: "2024-09-19",
+      stars: 4,
+      review: "Great value for the price. Satisfied with the purchase.",
+    },
+    {
+      name: "Alex Johnson",
+      date: "2024-09-18",
+      stars: 3,
+      review: "It's decent, but could be improved in a few areas.",
+    },
+    {
+      name: "Emily White",
+      date: "2024-09-17",
+      stars: 5,
+      review: "Exceeded my expectations! Will buy again for sure.",
+    },
+    {
+      
+        name: "Hugh Jackman",
+        date: "2024-09-19",
+        stars: 6,
+        review: "Good food. Wolverine happy",
+      
+    }
+  ]);
+
+  useEffect(()=>{
+    
+  })
   const [currentReview, setCurrentReview] = useState(0);
   const [animate, setAnimate] = useState(false);
 

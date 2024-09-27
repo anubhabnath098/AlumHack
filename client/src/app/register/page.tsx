@@ -23,6 +23,7 @@ const page = () => {
     });
     console.log(response.data);
     localStorage.setItem('username',response.data?.username);
+    localStorage.setItem('admin', response.data?.isAdmin);
     if(response.data.status===true){
       router.push("/login");
     }

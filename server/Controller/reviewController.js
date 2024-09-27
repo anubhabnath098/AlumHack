@@ -14,27 +14,39 @@ const createReview = async (req, res) => {
 
     try {
         const food = await Menu.findById(foodId);
-        const user = await User.find({username:username});
-        if(food&&user){
+        const user = await User.findOne({ username }); // Use findOne instead of find for a single user
+    
+        if (food && user) {
             const newReview = new Review({
                 foodId,
                 username,  // Reference to the authenticated user
-                title,               // Added title to the review object
+                title,     // Added title to the review object
                 description,
                 stars
             });
-            console.group(newReview)
+            
             await newReview.save();
+            
+            // Calculate the new average stars and reviews count
+            const totalStars = food.stars * food.reviews + stars; // existing total stars
+            const totalReviews = food.reviews + 1; // increment review count
+    
+            const newAverageStars = totalStars / totalReviews; // calculate new average stars
+    
+            await Menu.findByIdAndUpdate(foodId, {
+                stars: newAverageStars,
+                reviews: totalReviews
+            });
+    
             console.log(newReview);
-            res.status(201).json({ message: 'Review added', review: newReview , status:true});
+            res.status(201).json({ message: 'Review added', review: newReview, status: true });
+        } else {
+            res.json({ message: "Food item does not exist", status: false });
         }
-        else{
-            res.json({message:"food item does not exist", status:false});
-        }
-        
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
+    
 };
 
 // Get all reviews for a specific food item

@@ -20,23 +20,24 @@ function Page() {
     let router = useRouter();
     const { slug } = useParams();
     const [fooditem, setFoodItem] = useState(
-            {       _id:7,
-                    name:"Maggi",
-                    type:"snacks",
-                    availability:true,
-                    image:"maggi.jpg",
-                    desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel illo tempora vitae qui sit dignissimos, assumenda quisquam eos eveniet animi fuga eaque consectetur culpa cupiditate nemo veniam alias sequi nihil!",
-                    nutrition:{
-                      fat:"20 kcal",
-                      protein:"5.2 gm",
-                      carbs:"100 kcal"
-                    },
-                    quantity:"1 plate",
-                    price:60,
-                    reviews:5,
-                    upvote:20,
-                    downvote:6,
-                    stars:3})
+            {_id:4,
+            name:"Cold Coffee",
+            availability:true,
+            type:"drink",
+            image:"coldcoffee.avif",
+            desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel illo tempora vitae qui sit dignissimos, assumenda quisquam eos eveniet animi fuga eaque consectetur culpa cupiditate nemo veniam alias sequi nihil!",
+            nutrition:{
+              fat:"20 kcal",
+              protein:"5.2 gm",
+              carbs:"100 kcal"
+            },
+            quantity:"500 ml",
+            price:60,
+            reviews:5,
+            upvote:20,
+            downvote:6,
+            stars:4
+          })
     useEffect(()=>{
         const fetchData = async()=>{
             try{
@@ -56,27 +57,131 @@ function Page() {
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownvoted] = useState(false);
 
+    useEffect(() => {
+        const updateVotesInDatabase = async () => {
+            console.log(upvoted, downvoted, fooditem._id);
+            const username = localStorage.getItem('username');
+            try {
+                await axios.patch(`http://localhost:5000/api/menu/votes/${fooditem._id}`, {
+                    userId:username,
+                    upvoteChange: upvoted ? 1 : (downvoted ? -1 : 0),
+                    downvoteChange: downvoted ? 1 : (upvoted ? -1 : 0),
+                });
+            } catch (error) {
+                console.error('Error updating votes:', error);
+            }
+        };
+
+        // Only call the function if either upvote or downvote has changed
+        if (upvoted || downvoted) {
+            updateVotesInDatabase();
+        }
+    }, [upvoted, downvoted, fooditem._id]);
+
     const goBack = () => {
         router.back();
     }
 
     const handleUpvote = () => {
-        if (downvoted) {
-            setDownvoted(false);
-            fooditem.downvote -= 1;
-        }
-        setUpvoted(prev => !prev);
-        fooditem.upvote += upvoted ? -1 : 1;
-    }
-
-    const handleDownvote = () => {
+        const username = localStorage.getItem('username');
+        const userId = username; // Get the current user's ID from your authentication context
+        
         if (upvoted) {
-            setUpvoted(false);
-            fooditem.upvote -= 1;
+            // User is trying to upvote again, decrement the upvote count
+            setFoodItem(prev => ({
+                ...prev,
+                upvote: prev.upvote - 1,
+            }));
+            setUpvoted(false); // Remove upvote
+            updateVotes(userId, { upvoteChange: -1, downvoteChange: 0 });
+        } else {
+            // If user has downvoted, switch to upvote
+            if (downvoted) {
+                setFoodItem(prev => ({
+                    ...prev,
+                    downvote: prev.downvote - 1,
+                    upvote: prev.upvote + 1,
+                }));
+                setDownvoted(false); // Remove downvote
+                setUpvoted(true); // Set upvote
+                updateVotes(userId, { upvoteChange: 1, downvoteChange: -1 });
+            } else {
+                // User is voting for the first time
+                setFoodItem(prev => ({
+                    ...prev,
+                    upvote: prev.upvote + 1,
+                }));
+                setUpvoted(true);
+                updateVotes(userId, { upvoteChange: 1, downvoteChange: 0 });
+            }
         }
-        setDownvoted(prev => !prev);
-        fooditem.downvote += downvoted ? -1 : 1;
-    }
+    };
+    
+    
+    const handleDownvote = () => {
+        const username = localStorage.getItem('username');
+        const userId = username;
+    
+        if (downvoted) {
+            // User is trying to downvote again, decrement the downvote count
+            setFoodItem(prev => ({
+                ...prev,
+                downvote: prev.downvote - 1,
+            }));
+            setDownvoted(false); // Remove downvote
+            updateVotes(userId, { upvoteChange: 0, downvoteChange: -1 });
+        } else {
+            // If user has upvoted, switch to downvote
+            if (upvoted) {
+                setFoodItem(prev => ({
+                    ...prev,
+                    upvote: prev.upvote - 1,
+                    downvote: prev.downvote + 1,
+                }));
+                setUpvoted(false); // Remove upvote
+                setDownvoted(true); // Set downvote
+                updateVotes(userId, { upvoteChange: -1, downvoteChange: 1 });
+            } else {
+                // User is voting for the first time
+                setFoodItem(prev => ({
+                    ...prev,
+                    downvote: prev.downvote + 1,
+                }));
+                setDownvoted(true);
+                updateVotes(userId, { upvoteChange: 0, downvoteChange: 1 });
+            }
+        }
+    };
+    
+    
+    const updateVotes = async (userId, { upvoteChange, downvoteChange }) => {
+        try {
+            await axios.patch(`http://localhost:5000/api/menu/votes/${fooditem._id}`, {
+                userId,
+                upvoteChange,
+                downvoteChange,
+            });
+        } catch (error) {
+            console.error('Error updating votes:', error);
+            // Revert state if there's an error
+            if (upvoteChange < 0) {
+                setFoodItem(prev => ({
+                    ...prev,
+                    upvote: prev.upvote + 1,
+                }));
+                setUpvoted(true);
+            } else if (downvoteChange < 0) {
+                setFoodItem(prev => ({
+                    ...prev,
+                    downvote: prev.downvote + 1,
+                }));
+                setDownvoted(true);
+            }
+            alert('Failed to update votes. Please try again.');
+        }
+    };
+    
+    
 
     return (
         <div className='w-full h-screen flex justify-center items-center bg-yellow-100 z-0'>

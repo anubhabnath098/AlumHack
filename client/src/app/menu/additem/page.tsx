@@ -30,6 +30,7 @@ function AdminPage() {
   const [type, setType] = useState('snack');
   const [image, setImage] = useState(""); // Keep as null initially
   const [price, setPrice] = useState(0);
+  const [availability, setAvailability] = useState('true');
 
   const handleFile = (e:any) => {
     //console.log(e.target.files);
@@ -46,7 +47,7 @@ function AdminPage() {
     e.preventDefault();
     setDishData({
       name: name,
-      availability: true,
+      availability: availability==='true',
       type: type,
       image: image,
       desc: desc,
@@ -175,8 +176,8 @@ function AdminPage() {
                 />
               </div>
 
-              <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+              <div className='flex gap-4'>
+                <div><label htmlFor="category" className="block text-sm font-medium text-gray-700">
                   Category
                 </label>
                 <select 
@@ -186,7 +187,20 @@ function AdminPage() {
                 >
                   <option value="snack">Snack</option>
                   <option value="drink">Drink</option>
+                </select></div>
+                <div>
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                  Category
+                </label>
+                <select 
+                  name="category" 
+                  onChange={e => setAvailability(e.target.value)} 
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                >
+                  <option value="true">True</option>
+                  <option value="false">False</option>
                 </select>
+                </div>
               </div>
 
               <button 

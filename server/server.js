@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: "http://localhost:3000",
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Allowed methods
   credentials: true
 }))
 
@@ -34,6 +34,7 @@ app.use('/api/reviews', reviewRoutes);
 app.use("/api/users", userRoutes); // All user-related routes will have a /api/users prefix
 
 app.use("/api/menu", menuRoutes); 
+// app.use("/api/order", orderRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
